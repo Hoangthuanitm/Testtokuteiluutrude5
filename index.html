@@ -1,0 +1,1017 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>宿泊分野特定技能1号評価試験</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+ <style>
+        :root {
+        --font-base: clamp(18px, 3vw, 20px);
+        --font-small: clamp(16px, 2.5vw, 18px);
+        --font-heading: clamp(1.8em, 3.5vw, 2em);
+        --color-primary: #4A90E2;
+        --color-error: #EF4444;
+        --color-text: #333;
+        --color-gray: #6B7280;
+        --transition: 0.2s ease-in-out;
+    }
+    body {
+        font-family: 'Roboto', 'Noto Sans JP', sans-serif;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #F5F7FA;
+        font-size: var(--font-base);
+        line-height: 1.7;
+        color: var(--color-text);
+        overflow-x: auto;
+    }
+    .header {
+        text-align: center;
+        margin-bottom: 25px;
+        padding: 15px;
+        background-color: #FFFFFF;
+        border-radius: 10px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    }
+    .header h1 {
+        font-size: var(--font-heading);
+        margin: 0;
+        color: var(--color-primary);
+        line-height: 1.3;
+    }
+    .header h2 {
+        font-size: clamp(1.4em, 3vw, 1.6em);
+        margin: 10px 0;
+        color: var(--color-text);
+        line-height: 1.4;
+    }
+    .student-info {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+        border: 1px solid #E0E4EA;
+        padding: 15px;
+        border-radius: 10px;
+        background-color: #FFFFFF;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    }
+    .student-info div {
+        margin: 10px 0;
+    }
+    .student-info label {
+        font-weight: 500;
+        color: var(--color-primary);
+        display: block;
+        font-size: clamp(16px, 3vw, 18px);
+    }
+    .student-info input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #D1D5DB;
+        border-radius: 8px;
+        font-family: 'Roboto', sans-serif;
+        font-size: clamp(16px, 3vw, 18px);
+        transition: border-color var(--transition);
+        box-sizing: border-box;
+        min-height: 48px;
+    }
+    .student-info input:focus {
+        border-color: var(--color-primary);
+        outline: none;
+    }
+    .student-info #date {
+        background-color: #E0E4EA;
+        height: 48px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .question-section {
+        margin-bottom: 20px;
+        background-color: #FFFFFF;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        display: none;
+        max-width: 100%;
+    }
+    .question {
+        margin-bottom: 15px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #E0E4EA;
+    }
+    .options {
+        display: flex;
+        flex-direction: column;
+    }
+    .option {
+        margin: 8px 0;
+        display: flex;
+        align-items: center;
+    }
+    .option input {
+        margin-right: 12px;
+        accent-color: var(--color-primary);
+        transform: scale(1.2);
+    }
+    .option label {
+        font-size: clamp(16px, 3vw, 18px);
+        color: var(--color-text);
+    }
+    .example {
+        background-color: #F9FAFB;
+        padding: 15px;
+        border-left: 4px solid var(--color-primary);
+        margin-bottom: 15px;
+        border-radius: 8px;
+    }
+    h2 {
+        background-color: var(--color-primary);
+        color: #FFFFFF;
+        padding: 12px 15px;
+        border-radius: 8px;
+        font-size: clamp(1.4em, 3vw, 1.6em);
+        margin-top: 0;
+                    text-align: center;
+
+    }
+    button {
+        background-color: var(--color-primary);
+        color: #FFFFFF;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 15px;
+        font-size: clamp(16px, 3vw, 18px);
+        font-family: 'Roboto', sans-serif;
+        transition: background-color var(--transition);
+        min-width: 120px;
+    }
+    button:hover {
+        background-color: #357ABD;
+    }
+    button.reset {
+        background-color: var(--color-error);
+    }
+    button.reset:hover {
+        background-color: #DC2626;
+    }
+    .vietnamese {
+        font-family: 'Roboto', sans-serif;
+        font-style: italic;
+        color: var(--color-gray);
+        margin-bottom: 12px;
+        font-size: var(--font-small);
+    }
+    .result-section {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #FFFFFF;
+        border-radius: 10px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        display: none;
+    }
+    .error-message {
+        color: var(--color-error);
+        margin-top: 10px;
+        font-size: var(--font-small);
+    }
+    .result-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+        table-layout: auto;
+        overflow-x: auto;
+        min-width: 600px;
+    }
+    .result-table th,
+    .result-table td {
+        border: 1px solid #E0E4EA;
+        padding: 12px;
+        text-align: left;
+        white-space: nowrap;
+        font-size: clamp(16px, 2.5vw, 18px);
+                    text-align: center;
+
+    }
+    .result-table th {
+        background-color: var(--color-primary);
+        color: #FFFFFF;
+        font-weight: 500;
+    }
+    .result-table tr:nth-child(even) {
+        background-color: #F9FAFB;
+    }
+    .rank-a {
+        color: var(--color-primary);
+        font-weight: 500;
+    }
+    .rank-f {
+        color: var(--color-error);
+        font-weight: 500;
+    }
+    .result-section::-webkit-scrollbar {
+        height: 8px;
+    }
+    .result-section::-webkit-scrollbar-thumb {
+        background-color: var(--color-primary);
+        border-radius: 4px;
+    }
+    .result-section::-webkit-scrollbar-track {
+        background-color: #F5F7FA;
+    }
+    .result-section {
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-primary) #F5F7FA;
+    }
+    .image-placeholder {
+            width: 100%;
+            max-width: 300px;
+            height: 300px;
+            border: 1px dashed #D1D5DB;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 8px 0;
+            background-color: #F9FAFB;
+            font-size: var(--font-small);
+            overflow: hidden;
+        }
+        .image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    footer {
+        text-align: center;
+        margin-top: 30px;
+        padding: 15px 0;
+        border-top: 1px solid #E0E4EA;
+        color: var(--color-gray);
+        font-size: var(--font-small);
+        font-family: 'Roboto', sans-serif;
+    }
+    .correct-answer {
+        color: var(--color-primary);
+    }
+    .wrong-answer {
+        color: var(--color-error);
+    }
+    .answer-feedback {
+        margin-top: 8px;
+        font-size: var(--font-small);
+        color: var(--color-primary);
+    }
+    .answer-feedback.wrong {
+        color: var(--color-error);
+    }
+    .timer {
+        position: fixed;
+        top: 12px;
+        right: 12px;
+        background-color: var(--color-primary);
+        color: #FFFFFF;
+        padding: 10px 18px;
+        border-radius: 8px;
+        font-size: clamp(14px, 2.8vw, 16px);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+    }
+    .timer.warning {
+        background-color: var(--color-error);
+    }
+    .password-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+    }
+    .password-box {
+        background-color: #FFFFFF;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        max-width: 90%;
+        width: 320px;
+    }
+    .password-box input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #D1D5DB;
+        border-radius: 8px;
+        font-family: 'Roboto', sans-serif;
+        font-size: clamp(16px, 3vw, 18px);
+        box-sizing: border-box;
+        min-height: 48px;
+    }
+    .password-box input:focus {
+        border-color: var(--color-primary);
+        outline: none;
+    }
+    .password-box button {
+        margin: 10px 6px;
+    }
+    .password-error {
+        color: var(--color-error);
+        font-size: var(--font-small);
+        margin-top: 10px;
+    }
+    .text-input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #D1D5DB;
+        border-radius: 8px;
+        font-family: 'Roboto', sans-serif;
+        font-size: clamp(16px, 3vw, 18px);
+        margin-top: 10px;
+        box-sizing: border-box;
+        min-height: 48px;
+        transition: border-color var(--transition);
+    }
+    .text-input:focus {
+        border-color: var(--color-primary);
+        outline: none;
+    }
+    .button-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+    @media (max-width: 768px) {
+        body {
+            padding: 12px;
+        }
+        .header {
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            font-size: clamp(1.6em, 3.5vw, 1.8em);
+        }
+        .header h2 {
+            font-size: clamp(1.3em, 3vw, 1.5em);
+        }
+        .student-info {
+            padding: 12px;
+        }
+        .student-info input,
+        .student-info label,
+        .option label {
+            font-size: clamp(15px, 2.8vw, 17px);
+        }
+        .student-info #date {
+            background-color: #E0E4EA;
+            height: 48px;
+            width: 95%;
+            box-sizing: border-box;
+        }
+        .question-section {
+            padding: 12px;
+        }
+        .result-section {
+            padding: 12px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            position: relative;
+        }
+        .result-wrapper {
+            margin: 0 12px; /* Căn đều 12px từ cả lề trái và lề phải */
+            overflow-x: auto;
+        }
+        .result-table {
+            width: 768px;
+            min-width: 600px;
+            font-size: clamp(15px, 2.5vw, 17px);
+            table-layout: auto;
+        }
+        .result-table th,
+        .result-table td {
+            padding: 10px;
+            font-size: clamp(15px, 2.5vw, 17px);
+            text-align: center;
+        }
+        .result-section h2 {
+            width: 768px;
+            min-width: 600px;
+            box-sizing: border-box;
+            padding-left: 15px;
+            padding-right: 15px;
+            overflow-x: auto;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: clamp(15px, 2.8vw, 17px);
+            min-width: 100px;
+        }
+        .timer {
+            top: 10px;
+            right: 10px;
+            padding: 8px 15px;
+            font-size: clamp(13px, 2.8vw, 15px);
+        }
+        .image-placeholder {
+            max-width: 100px;
+            height: 80px;
+        }
+        .password-box {
+            width: 90%;
+            padding: 15px;
+        }
+    @media (max-width: 768px) {
+    /* Ngăn trượt ngang cho body */
+    body {
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100vw;
+        box-sizing: border-box;
+    }
+
+    /* Đảm bảo các container chính không vượt quá viewport */
+    .header, .student-info, .question-section, .password-box {
+        max-width: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+
+    /* Sửa .image-placeholder để hiển thị hình ảnh đúng */
+    .image-placeholder {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        min-height: 80px;
+        border: 1px dashed #D1D5DB;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 8px 0;
+        background-color: #F9FAFB;
+        font-size: clamp(14px, 2.5vw, 16px);
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    .image-placeholder img {
+        width: 100%;
+        height: auto;
+        max-height: 100%;
+        object-fit: contain;
+        display: block;
+    }
+
+    /* Sửa input ngày */
+    .student-info #date {
+        width: 95%;
+        max-width: 100%;
+        box-sizing: border-box;
+        height: 48px;
+        background-color: #E0E4EA;
+    }
+
+    /* Điều chỉnh .result-section để thêm khoảng cách cho thanh trượt */
+    .result-section {
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        box-sizing: border-box;
+        padding-bottom: 30px; /* Thêm khoảng cách dưới để đẩy thanh trượt xuống */
+        position: relative;
+    }
+
+    .result-wrapper {
+        max-width: 100%;
+        overflow-x: auto;
+        margin: 0;
+        padding-bottom: 20px; /* Thêm padding để đảm bảo thanh trượt không che nút */
+    }
+
+    .result-table {
+        width: auto;
+        min-width: 600px; /* Giữ trượt ngang */
+        font-size: clamp(15px, 2.5vw, 17px);
+        table-layout: auto;
+    }
+
+    .result-table th,
+    .result-table td {
+        padding: 10px;
+        font-size: clamp(15px, 2.5vw, 17px);
+        text-align: center;
+    }
+
+    .result-section h2 {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 12px 15px;
+        text-align: center;
+        overflow-x: hidden;
+    }
+
+    /* Đảm bảo nút "Làm lại" hiển thị rõ ràng */
+    button.reset {
+        max-width: 100%;
+        box-sizing: border-box;
+        /* Không thêm margin hoặc position mới để giữ nguyên vị trí */
+    }
+
+    /* Đảm bảo các nút và modal khác không gây trượt ngang */
+    button, .password-box {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Ngăn văn bản dài gây trượt ngang */
+    .question, .option label {
+        word-break: break-all;
+        overflow-wrap: break-word;
+    }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>宿泊分野特定技能1号評価試験</h1>
+        <h2>模擬試験第5回目</h2>
+        <p>時間：60 分</p>
+    </div>
+    <div class="student-info">
+        <div>
+            <label for="name">名前（なまえ）:</label>
+            <input type="text" id="name" name="name">
+        </div>
+        <div>
+            <label for="class">クラス:</label>
+            <input type="text" id="class" name="class">
+        </div>
+        <div>
+            <label for="date">日付:</label>
+            <input type="date" id="date" name="date">
+        </div>
+    </div>
+    <div class="button-container">
+        <button id="start-test" type="button">Bắt đầu làm bài</button>
+        <button id="history-test" type="button" onclick="window.showPasswordModal()">Lịch sử kiểm tra</button>
+    </div>
+    <div id="message-info" class="error-message"></div>
+    <div id="timer" class="timer" style="display: none;">Thời gian còn lại: 60:00</div>
+    <div class="question-section" id="question-section">
+        <!-- Questions will be dynamically inserted here -->
+    </div>
+    <button id="submit-test" type="button" style="display: none;">テストを提出する (Nộp bài)</button>
+    <div id="message-result" class="error-message"></div>
+    <div class="result-section" id="results">
+    <div class="result-wrapper">
+        <h2>採点結果 (Kết quả)</h2>
+        <table class="result-table">
+            <!-- Nội dung bảng -->
+        </table>
+        <div id="score-display"></div>
+    </div>
+    </div>
+    <div class="password-modal" id="password-modal">
+        <div class="password-box">
+            <h2>Nhập mật khẩu</h2>
+            <input type="password" id="password-input" placeholder="Mật khẩu">
+            <div>
+                <button onclick="window.checkPassword()">Xác nhận</button>
+                <button onclick="window.closePasswordModal()">Quay lại</button>
+            </div>
+            <div id="password-error" class="password-error"></div>
+        </div>
+    </div>
+    <footer>
+        <p>© 2025 Tài liệu kiểm tra | Thiết kế bởi Thuận</p>
+    </footer>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAfy4QMD9_7PyFHpInNdKDRWuW4AYCtLJ4",
+            authDomain: "history-e4633.firebaseapp.com",
+            projectId: "history-e4633",
+            storageBucket: "history-e4633.firebasestorage.app",
+            messagingSenderId: "331974436893",
+            appId: "1:331974436893:web:10c3c6adf7b66d2b5fbef4",
+            measurementId: "G-DC055090BW"
+        };
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        // Tự động đặt ngày hiện tại cho trường date
+        document.addEventListener('DOMContentLoaded', () => {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').value = today;
+        });
+        // Question and answer key data
+const answerKey = {
+  1: 'B',
+  2: 'B',
+  3: 'A',
+  4: 'B',
+  5: 'A',
+  6: 'A',
+  7: 'B',
+  8: 'C',
+  9: 'C',
+  10: 'A',
+  11: 'A',
+  12: 'B',
+  13: 'A',
+  14: 'C',
+  15: 'A',
+  16: 'B',
+  17: 'B',
+  18: 'B',
+  19: 'C',
+  20: 'B',
+  21: 'A',
+  22: 'B',
+  23: 'A',
+  24: 'A',
+  25: 'A',
+  26: 'B',
+  27: 'B',
+  28: 'A',
+  29: 'B',
+  30: 'A',
+  31: 'A',
+  32: 'A',
+  33: 'A',
+  34: 'C',
+  35: 'A',
+  36: 'A',
+  37: 'B',
+  38: 'A',
+  39: 'A',
+  40: 'B'
+};
+
+
+
+const questions = [
+    { id: 1, text: 'ホテルのチェックインのとき、まずお<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>にお<ruby><rb>願</rb><rt>ねが</rt></ruby>いすることはどれですか。', options: ['A. <ruby><rb>部屋</rb><rt>へや</rt></ruby>の<ruby><rb>掃除</rb><rt>そうじ</rt></ruby>をする', 'B. <ruby><rb>宿泊</rb><rt>しゅくはく</rt></ruby>カードに<ruby><rb>記入</rb><rt>きにゅう</rt></ruby>してもらう', 'C. <ruby><rb>荷物</rb><rt>にもつ</rt></ruby>を<ruby><rb>部屋</rb><rt>へや</rt></ruby>まで<ruby><rb>運</rb><rt>はこ</rt></ruby>ぶ'], explanation: '' },
+    { id: 2, text: 'この中で<ruby><rb>正</rb><rt>ただ</rt></ruby>しい<ruby><rb>身</rb><rt>み</rt></ruby>だしなみをしているのはどれですか。', options: ['A. ネクタイをしていない<ruby><rb>男性</rb><rt>だんせい</rt></ruby>', 'B. <ruby><rb>制服</rb><rt>せいふく</rt></ruby>をきちんと<ruby><rb>着</rb><rt>き</rt></ruby>ている<ruby><rb>男性</rb><rt>だんせい</rt></ruby>', 'C. <ruby><rb>髪</rb><rt>かみ</rt></ruby>を<ruby><rb>染</rb><rt>そ</rt></ruby>めてピアスをしている<ruby><rb>男性</rb><rt>だんせい</rt></ruby>'], explanation: '' },
+    { id: 3, text: '<ruby><rb>客室</rb><rt>きゃくしつ</rt></ruby><ruby><rb>清掃</rb><rt>せいそう</rt></ruby>のとき、<ruby><rb>最初</rb><rt>さいしょ</rt></ruby>に<ruby><rb>行</rb><rt>おこな</rt></ruby>う<ruby><rb>作業</rb><rt>さぎょう</rt></ruby>はどれですか。', options: ['A. ごみを<ruby><rb>回収</rb><rt>かいしゅう</rt></ruby>する', 'B. アメニティの<ruby><rb>補充</rb><rt>ほじゅう</rt></ruby>', 'C. ベッドメイキング'], explanation: '' },
+    { id: 4, text: '<ruby><rb>宿泊施設</rb><rt>しゅくはくしせつ</rt></ruby>で<ruby><rb>正</rb><rt>ただ</rt></ruby>しい<ruby><rb>ゴミ</rb><rt>ごみ</rt></ruby>の<ruby><rb>分別</rb><rt>ぶんべつ</rt></ruby>はどれですか。', options: ['A. ペットボトルを<ruby><rb>燃</rb><rt>も</rt></ruby>える<ruby><rb>ゴミ</rb><rt>ごみ</rt></ruby>に<ruby><rb>入</rb><rt>い</rt></ruby>れる', 'B. <ruby><rb>缶</rb><rt>かん</rt></ruby>を<ruby><rb>缶</rb><rt>かん</rt></ruby>の<ruby><rb>箱</rb><rt>はこ</rt></ruby>に<ruby><rb>入</rb><rt>い</rt></ruby>れる', 'C. <ruby><rb>ビン</rb><rt>びん</rt></ruby>を<ruby><rb>燃</rb><rt>も</rt></ruby>える<ruby><rb>ゴミ</rb><rt>ごみ</rt></ruby>に<ruby><rb>入</rb><rt>い</rt></ruby>れる'], explanation: '' },
+    { id: 5, text: 'フロント<ruby><rb>業務</rb><rt>ぎょうむ</rt></ruby>で「お<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>をお<ruby><rb>待</rb><rt>ま</rt></ruby>たせしない」ために<ruby><rb>大切</rb><rt>たいせつ</rt></ruby>なのはどれですか。', options: ['A. <ruby><rb>必要</rb><rt>ひつよう</rt></ruby>な<ruby><rb>書類</rb><rt>しょるい</rt></ruby>をあらかじめ<ruby><rb>準備</rb><rt>じゅんび</rt></ruby>する', 'B. <ruby><rb>手続</rb><rt>てつづ</rt></ruby>きをゆっくり<ruby><rb>行</rb><rt>おこな</rt></ruby>う', 'C. お<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>と<ruby><rb>長</rb><rt>なが</rt></ruby>く<ruby><rb>世間話</rb><rt>せけんばなし</rt></ruby>をする'], explanation: '' },
+    { id: 6, text: '<ruby><rb>非常口</rb><rt>ひじょうぐち</rt></ruby>のマークは<ruby><rb>何</rb><rt>なに</rt></ruby>を<ruby><rb>意味</rb><rt>いみ</rt></ruby>しますか。', options: ['A. <ruby><rb>避難</rb><rt>ひなん</rt></ruby>する<ruby><rb>出口</rb><rt>でぐち</rt></ruby>', 'B. トイレの<ruby><rb>場所</rb><rt>ばしょ</rt></ruby>', 'C. エレベーターの<ruby><rb>場所</rb><rt>ばしょ</rt></ruby>'], explanation: '' },
+    { id: 7, text: 'お<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>から「Wi-Fiのパスワードを<ruby><rb>教</rb><rt>おし</rt></ruby>えてください」と<ruby><rb>言</rb><rt>い</rt></ruby>われたときの<ruby><rb>正</rb><rt>ただ</rt></ruby>しい<ruby><rb>対応</rb><rt>たいおう</rt></ruby>はどれですか。', options: ['A. <ruby><rb>自分</rb><rt>じぶん</rt></ruby>の<ruby><rb>携帯</rb><rt>けいたい</rt></ruby>のパスワードを<ruby><rb>教</rb><rt>おし</rt></ruby>える', 'B. フロントに<ruby><rb>掲示</rb><rt>けいじ</rt></ruby>してある<ruby><rb>情報</rb><rt>じょうほう</rt></ruby>を<ruby><rb>案内</rb><rt>あんない</rt></ruby>する', 'C. わかりませんと<ruby><rb>言</rb><rt>い</rt></ruby>う'], explanation: '' },
+    { id: 8, text: '<ruby><rb>客室</rb><rt>きゃくしつ</rt></ruby>で<ruby><rb>変</rb><rt>へん</rt></ruby>な<ruby><rb>匂</rb><rt>にお</rt></ruby>いするとお<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>から<ruby><rb>苦情</rb><rt>くじょう</rt></ruby>があったとき、<ruby><rb>最初</rb><rt>さいしょ</rt></ruby>にすべきことはどれですか。', options: ['A. お<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>に<ruby><rb>我慢</rb><rt>がまん</rt></ruby>してもらう', 'B. <ruby><rb>芳香剤</rb><rt>ほうこうざい</rt></ruby>を<ruby><rb>強</rb><rt>つよ</rt></ruby>く<ruby><rb>使</rb><rt>つか</rt></ruby>う', 'C. 他の<ruby><rb>部屋</rb><rt>へや</rt></ruby>に<ruby><rb>移動</rb><rt>いどう</rt></ruby>できるか<ruby><rb>確認</rb><rt>かくにん</rt></ruby>する'], explanation: '' },
+    { id: 9, text: '<ruby><rb>客室</rb><rt>きゃくしつ</rt></ruby>にスリッパが<ruby><rb>足</rb><rt>た</rt></ruby>りないとき、<ruby><rb>正</rb><rt>ただ</rt></ruby>しい<ruby><rb>対応</rb><rt>たいおう</rt></ruby>はどれですか。', options: ['A. お<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>に<ruby><rb>持参</rb><rt>じさん</rt></ruby>してもらう', 'B. <ruby><rb>何</rb><rt>なに</rt></ruby>もしない', 'C. すぐにフロントに<ruby><rb>連絡</rb><rt>れんらく</rt></ruby>して<ruby><rb>追加</rb><rt>ついか</rt></ruby>する'], explanation: '' },
+    { id: 10, text: '<ruby><rb>宿泊業</rb><rt>しゅくはくぎょう</rt></ruby>で<ruby><rb>働</rb><rt>はたら</rt></ruby>くときに<ruby><rb>大切</rb><rt>たいせつ</rt></ruby>な「5S」の<ruby><rb>一</rb><rt>ひと</rt></ruby>つに<ruby><rb>含</rb><rt>ふく</rt></ruby>まれるのはどれですか。', options: ['A. <ruby><rb>整理</rb><rt>せいり</rt></ruby>・<ruby><rb>整頓</rb><rt>せいとん</rt></ruby>', 'B. <ruby><rb>食事</rb><rt>しょくじ</rt></ruby>・<ruby><rb>睡眠</rb><rt>すいみん</rt></ruby>', 'C. <ruby><rb>成功</rb><rt>せいこう</rt></ruby>・<ruby><rb>成長</rb><rt>せいちょう</rt></ruby>'], explanation: '' },
+    { id: 11, text: 'ホテルで「チェックアウト<ruby><rb>時間</rb><rt>じかん</rt></ruby>」は<ruby><rb>通常</rb><rt>つうじょう</rt></ruby>いつですか。', options: ['A. <ruby><rb>朝</rb><rt>あさ</rt></ruby> 10<ruby><rb>時</rb><rt>じ</rt></ruby>ごろ', 'B. <ruby><rb>昼</rb><rt>ひる</rt></ruby> 12<ruby><rb>時</rb><rt>じ</rt></ruby>ごろ', 'C. <ruby><rb>夜</rb><rt>よる</rt></ruby> 20<ruby><rb>時</rb><rt>じ</rt></ruby>ごろ'], explanation: '' },
+    { id: 12, text: '<ruby><rb>非常</rb><rt>ひじょう</rt></ruby>ベルを<ruby><rb>押</rb><rt>お</rt></ruby>すのはどんなときですか。', options: ['A. チェックインのとき', 'B. <ruby><rb>火事</rb><rt>かじ</rt></ruby>が<ruby><rb>発生</rb><rt>はっせい</rt></ruby>したとき', 'C. <ruby><rb>掃除</rb><rt>そうじ</rt></ruby>が<ruby><rb>終</rb><rt>お</rt></ruby>わったとき'], explanation: '' },
+    { id: 13, text: '<ruby><rb>団体客</rb><rt>だんたいきゃく</rt></ruby>の<ruby><rb>予約</rb><rt>よやく</rt></ruby>を<ruby><rb>受</rb><rt>う</rt></ruby>けるときに<ruby><rb>大切</rb><rt>たいせつ</rt></ruby>なことはどれですか。', options: ['A. <ruby><rb>部屋数</rb><rt>へやすう</rt></ruby>と<ruby><rb>人数</rb><rt>にんずう</rt></ruby>を<ruby><rb>確認</rb><rt>かくにん</rt></ruby>する', 'B. <ruby><rb>支払</rb><rt>しはら</rt></ruby>い<ruby><rb>方法</rb><rt>ほうほう</rt></ruby>は<ruby><rb>確認</rb><rt>かくにん</rt></ruby>しなくてもよい', 'C. お<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>の<ruby><rb>国籍</rb><rt>こくせき</rt></ruby>を<ruby><rb>確認</rb><rt>かくにん</rt></ruby>するだけ'], explanation: '' },
+    { id: 14, text: '<ruby><rb>清掃中</rb><rt>せいそうちゅう</rt></ruby>に<ruby><rb>貴重品</rb><rt>きちょうひん</rt></ruby>を<ruby><rb>見</rb><rt>み</rt></ruby>つけたときの<ruby><rb>正</rb><rt>ただ</rt></ruby>しい<ruby><rb>対応</rb><rt>たいおう</rt></ruby>はどれですか。', options: ['A. そのまま<ruby><rb>放置</rb><rt>ほうち</rt></ruby>する', 'B. <ruby><rb>自分</rb><rt>じぶん</rt></ruby>で<ruby><rb>保管</rb><rt>ほかん</rt></ruby>する', 'C. フロントに<ruby><rb>届</rb><rt>とど</rt></ruby>ける'], explanation: '' },
+    { id: 15, text: 'お<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>から「タオルが<ruby><rb>汚</rb><rt>よご</rt></ruby>れています」と<ruby><rb>言</rb><rt>い</rt></ruby>われたときの<ruby><rb>正</rb><rt>ただ</rt></ruby>しい<ruby><rb>対応</rb><rt>たいおう</rt></ruby>はどれですか。', options: ['A. <ruby><rb>新</rb><rt>あた</rt></ruby>しいタオルをすぐに<ruby><rb>持</rb><rt>も</rt></ruby>って<ruby><rb>行</rb><rt>い</rt></ruby>く', 'B. そのまま<ruby><rb>使</rb><rt>つか</rt></ruby>ってもらう', 'C. <ruby><rb>後</rb><rt>あと</rt></ruby>で<ruby><rb>持</rb><rt>も</rt></ruby>って<ruby><rb>行</rb><rt>い</rt></ruby>く'], explanation: '' },
+    { id: 16, text: '<ruby><rb>外国人</rb><rt>がいこくじん</rt></ruby>のお<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>に<ruby><rb>道</rb><rt>みち</rt></ruby>を<ruby><rb>聞</rb><rt>き</rt></ruby>かれたときの<ruby><rb>対応</rb><rt>たいおう</rt></ruby>で<ruby><rb>正</rb><rt>ただ</rt></ruby>しいのはどれですか。', options: ['A. <ruby><rb>無視</rb><rt>むし</rt></ruby>する', 'B. わからないときは<ruby><rb>地図</rb><rt>ちず</rt></ruby>やアプリを<ruby><rb>使</rb><rt>つか</rt></ruby>って<ruby><rb>案内</rb><rt>あんない</rt></ruby>する', 'C. <ruby><rb>適当</rb><rt>てきとう</rt></ruby>に<ruby><rb>教</rb><rt>おし</rt></ruby>える'], explanation: '' },
+    { id: 17, text: '<ruby><rb>客室</rb><rt>きゃくしつ</rt></ruby><ruby><rb>清掃</rb><rt>せいそう</rt></ruby>でベッドメイキングをするとき、シーツをどうするのが<ruby><rb>正</rb><rt>ただ</rt></ruby>しいですか。', options: ['A. <ruby><rb>半分</rb><rt>はんぶん</rt></ruby>だけ<ruby><rb>交換</rb><rt>こうかん</rt></ruby>する', 'B. <ruby><rb>毎回</rb><rt>まいかい</rt></ruby><ruby><rb>新</rb><rt>あた</rt></ruby>しいシーツに<ruby><rb>取</rb><rt>と</rt></ruby>り<ruby><rb>替</rb><rt>か</rt></ruby>える', 'C. <ruby><rb>汚</rb><rt>よご</rt></ruby>れていなければそのまま<ruby><rb>使</rb><rt>つか</rt></ruby>う'], explanation: '' },
+    { id: 18, text: '<ruby><rb>禁煙</rb><rt>きんえん</rt></ruby>ルームに<ruby><rb>灰皿</rb><rt>はいざら</rt></ruby>を<ruby><rb>置</rb><rt>お</rt></ruby>くことはできますか。', options: ['A. はい、できます', 'B. いいえ、できません', 'C. <ruby><rb>時々</rb><rt>ときどき</rt></ruby>ならできます'], explanation: '' },
+    { id: 19, text: 'フロントでお<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>を<ruby><rb>待</rb><rt>ま</rt></ruby>たせているときの<ruby><rb>言葉</rb><rt>ことば</rt></ruby>として<ruby><rb>正</rb><rt>ただ</rt></ruby>しいのはどれですか。', options: ['A. 「ちょっと<ruby><rb>待</rb><rt>ま</rt></ruby>って」', 'B. 「<ruby><rb>今</rb><rt>いま</rt></ruby>できません」', 'C. 「<ruby><rb>少々</rb><rt>しょうしょう</rt></ruby>お<ruby><rb>待</rb><rt>ま</rt></ruby>ちくださいませ」'], explanation: '' },
+    { id: 20, text: 'お<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>からクレームを<ruby><rb>受</rb><rt>う</rt></ruby>けたときにまず<ruby><rb>大切</rb><rt>たいせつ</rt></ruby>なのはどれですか。', options: ['A. その<ruby><rb>場</rb><rt>ば</rt></ruby>を<ruby><rb>離</rb><rt>はな</rt></ruby>れる', 'B. <ruby><rb>謝罪</rb><rt>しゃざい</rt></ruby>して<ruby><rb>話</rb><rt>はなし</rt></ruby>をよく<ruby><rb>聞</rb><rt>き</rt></ruby>く', 'C. <ruby><rb>自分</rb><rt>じぶん</rt></ruby>の<ruby><rb>意見</rb><rt>いけん</rt></ruby>を<ruby><rb>先</rb><rt>さき</rt></ruby>に<ruby><rb>言</rb><rt>い</rt></ruby>う'], explanation: '' },
+    { id: 21, text: 'チェックインのときにパスポートを<ruby><rb>確認</rb><rt>かくにん</rt></ruby>するのはどんなお<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>ですか。', options: ['A. <ruby><rb>外国人</rb><rt>がいこくじん</rt></ruby>のお<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>', 'B. <ruby><rb>日本人</rb><rt>にほんじん</rt></ruby>のお<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>', 'C. <ruby><rb>子</rb><rt>こ</rt></ruby>どもだけの<ruby><rb>宿泊客</rb><rt>しゅくはくきゃく</rt></ruby>'], explanation: '' },
+    { id: 22, text: 'エレベーターに<ruby><rb>表示</rb><rt>ひょうじ</rt></ruby>されている<ruby><rb>数字</rb><rt>すうじ</rt></ruby>は<ruby><rb>何</rb><rt>なに</rt></ruby>を<ruby><rb>意味</rb><rt>いみ</rt></ruby>しますか。', options: ['A. <ruby><rb>階数</rb><rt>かいすう</rt></ruby>', 'B. <ruby><rb>定員</rb><rt>ていいん</rt></ruby>や<ruby><rb>重量制限</rb><rt>じゅうりょうせいげん</rt></ruby>', 'C. <ruby><rb>部屋番号</rb><rt>へやばんごう</rt></ruby>'], explanation: '' },
+    { id: 23, text: 'ホテルで<ruby><rb>使</rb><rt>つか</rt></ruby>う「アメニティ」に<ruby><rb>含</rb><rt>ふく</rt></ruby>まれるものはどれですか。', options: ['A. シャンプーや<ruby><rb>歯</rb><rt>は</rt></ruby>ブラシ', 'B. ベッドや<ruby><rb>机</rb><rt>つくえ</rt></ruby>', 'C. <ruby><rb>冷蔵庫</rb><rt>れいぞうこ</rt></ruby>'], explanation: '' },
+    { id: 24, text: '「フロント<ruby><rb>業務</rb><rt>ぎょうむ</rt></ruby>」で<ruby><rb>大切</rb><rt>たいせつ</rt></ruby>なのはどれですか。', options: ['A. お<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>の<ruby><rb>情報</rb><rt>じょうほう</rt></ruby>を<ruby><rb>正</rb><rt>ただ</rt></ruby>しく<ruby><rb>記録</rb><rt>きろく</rt></ruby>する', 'B. お<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>の<ruby><rb>荷物</rb><rt>にもつ</rt></ruby>を<ruby><rb>勝手</rb><rt>かって</rt></ruby>に<ruby><rb>開</rb><rt>あ</rt></ruby>ける', 'C. <ruby><rb>自分</rb><rt>じぶん</rt></ruby>の<ruby><rb>私用電話</rb><rt>しようでんわ</rt></ruby>をする'], explanation: '' },
+    { id: 25, text: '<ruby><rb>火災訓練</rb><rt>かさいくんれん</rt></ruby>を<ruby><rb>行</rb><rt>おこな</rt></ruby>う<ruby><rb>目的</rb><rt>もくてき</rt></ruby>は<ruby><rb>何</rb><rt>なに</rt></ruby>ですか。', options: ['A. <ruby><rb>避難</rb><rt>ひなん</rt></ruby>の<ruby><rb>仕方</rb><rt>しかた</rt></ruby>を<ruby><rb>覚</rb><rt>おぼ</rt></ruby>えるため', 'B. <ruby><rb>消防車</rb><rt>しょうぼうしゃ</rt></ruby>を<ruby><rb>呼</rb><rt>よ</rt></ruby>ぶ<ruby><rb>練習</rb><rt>れんしゅう</rt></ruby>のため', 'C. お<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>に<ruby><rb>見</rb><rt>み</rt></ruby>せるため'], explanation: '' },
+    { id: 26, text: 'お<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>から「<ruby><rb>部屋</rb><rt>へや</rt></ruby>が<ruby><rb>寒</rb><rt>さむ</rt></ruby>い」と<ruby><rb>言</rb><rt>い</rt></ruby>われたときの<ruby><rb>対応</rb><rt>たいおう</rt></ruby>はどれですか。', options: ['A. <ruby><rb>我慢</rb><rt>がまん</rt></ruby>してもらう', 'B. エアコンの<ruby><rb>使</rb><rt>つか</rt></ruby>い<ruby><rb>方</rb><rt>かた</rt></ruby>を<ruby><rb>説明</rb><rt>せつめい</rt></ruby>する', 'C. すぐに<ruby><rb>窓</rb><rt>まど</rt></ruby>を<ruby><rb>開</rb><rt>あ</rt></ruby>ける'], explanation: '' },
+    { id: 27, text: '<ruby><rb>客室</rb><rt>きゃくしつ</rt></ruby>のミニバーで<ruby><rb>飲</rb><rt>の</rt></ruby>んだ<ruby><rb>飲</rb><rt>のみ</rt></ruby>み<ruby><rb>物</rb><rt>もの</rt></ruby>の<ruby><rb>料金</rb><rt>りょうきん</rt></ruby>はどうなりますか。', options: ['A. <ruby><rb>無料</rb><rt>むりょう</rt></ruby>になる', 'B. チェックアウトのときに<ruby><rb>請求</rb><rt>せいきゅう</rt></ruby>される', 'C. <ruby><rb>清掃係</rb><rt>せいそうがかり</rt></ruby>が<ruby><rb>払</rb><rt>はら</rt></ruby>う'], explanation: '' },
+    { id: 28, text: 'お<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>が<ruby><rb>怪我</rb><rt>けが</rt></ruby>をしたとき、まずするべきことはどれですか。', options: ['A. <ruby><rb>救急箱</rb><rt>きゅうきゅうばこ</rt></ruby>を<ruby><rb>使</rb><rt>つか</rt></ruby>って<ruby><rb>応急処置</rb><rt>おうきゅうしょち</rt></ruby>をする', 'B. <ruby><rb>何</rb><rt>なに</rt></ruby>もしない', 'C. お<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>に<ruby><rb>薬</rb><rt>くすり</rt></ruby>を<ruby><rb>買</rb><rt>か</rt></ruby>わせる'], explanation: '' },
+    { id: 29, text: 'チェックアウト<ruby><rb>後</rb><rt>ご</rt></ruby>に<ruby><rb>忘</rb><rt>わす</rt></ruby>れ<ruby><rb>物</rb><rt>もの</rt></ruby>があった<ruby><rb>場合</rb><rt>ばあい</rt></ruby>の<ruby><rb>正</rb><rt>ただ</rt></ruby>しい<ruby><rb>対応</rb><rt>たいおう</rt></ruby>はどれですか。', options: ['A. すぐ<ruby><rb>捨</rb><rt>す</rt></ruby>てる', 'B. フロントで<ruby><rb>保管</rb><rt>ほかん</rt></ruby>して<ruby><rb>記録</rb><rt>きろく</rt></ruby>する', 'C. 他のお<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>に<ruby><rb>渡</rb><rt>わた</rt></ruby>す'], explanation: '' },
+    { id: 30, text: 'フロントでの<ruby><rb>電話応対</rb><rt>でんわおうたい</rt></ruby>で<ruby><rb>最初</rb><rt>さいしょ</rt></ruby>に<ruby><rb>言</rb><rt>い</rt></ruby>うべき<ruby><rb>言葉</rb><rt>ことば</rt></ruby>はどれですか。', options: ['A. 「はい、〇〇ホテルでございます」', 'B. 「<ruby><rb>誰</rb><rt>だれ</rt></ruby>ですか？」', 'C. 「<ruby><rb>忙</rb><rt>いそが</rt></ruby>しいので<ruby><rb>後</rb><rt>あと</rt></ruby>でかけてください」'], explanation: '' },
+    { id: 31, text: 'ホテルの<ruby><rb>制服</rb><rt>せいふく</rt></ruby>を<ruby><rb>着</rb><rt>き</rt></ruby>るときに<ruby><rb>注意</rb><rt>ちゅうい</rt></ruby>すべきことはどれですか。', options: ['A. <ruby><rb>清潔</rb><rt>せいけつ</rt></ruby>でしわがないこと', 'B. <ruby><rb>派手</rb><rt>はで</rt></ruby>なアクセサリーをつけること', 'C. <ruby><rb>自分</rb><rt>じぶん</rt></ruby>の<ruby><rb>好</rb><rt>す</rt></ruby>きな<ruby><rb>服</rb><rt>ふく</rt></ruby>を<ruby><rb>着</rb><rt>き</rt></ruby>ること'], explanation: '' },
+    { id: 32, text: 'お<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>に<ruby><rb>料理</rb><rt>りょうり</rt></ruby>を<ruby><rb>運</rb><rt>はこ</rt></ruby>ぶときに<ruby><rb>大切</rb><rt>たいせつ</rt></ruby>なのはどれですか。', options: ['A. <ruby><rb>静</rb><rt>しず</rt></ruby>かに<ruby><rb>丁寧</rb><rt>ていねい</rt></ruby>に<ruby><rb>運</rb><rt>はこ</rt></ruby>ぶ', 'B. <ruby><rb>早</rb><rt>はや</rt></ruby>く<ruby><rb>投</rb><rt>な</rt></ruby>げるように<ruby><rb>置</rb><rt>お</rt></ruby>く', 'C. お<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>に<ruby><rb>自分</rb><rt>じぶん</rt></ruby>で<ruby><rb>取</rb><rt>と</rt></ruby>りに<ruby><rb>来</rb><rt>き</rt></ruby>てもらう'], explanation: '' },
+    { id: 33, text: 'お<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>から「<ruby><rb>観光地</rb><rt>かんこうち</rt></ruby>を<ruby><rb>教</rb><rt>おし</rt></ruby>えてください」と<ruby><rb>言</rb><rt>い</rt></ruby>われたとき、<ruby><rb>正</rb><rt>ただ</rt></ruby>しい<ruby><rb>対応</rb><rt>たいおう</rt></ruby>はどれですか。', options: ['A. パンフレットや<ruby><rb>地図</rb><rt>ちず</rt></ruby>を<ruby><rb>渡</rb><rt>わた</rt></ruby>して<ruby><rb>説明</rb><rt>せつめい</rt></ruby>する', 'B. すべて<ruby><rb>自分</rb><rt>じぶん</rt></ruby>で<ruby><rb>連</rb><rt>つ</rt></ruby>れて<ruby><rb>行</rb><rt>い</rt></ruby>く', 'C. <ruby><rb>無視</rb><rt>むし</rt></ruby>する'], explanation: '' },
+    { id: 34, text: '「<ruby><rb>身</rb><rt>み</rt></ruby>だしなみ」で<ruby><rb>不適切</rb><rt>ふてきせつ</rt></ruby>なものはどれですか。', options: ['A. <ruby><rb>髪</rb><rt>かみ</rt></ruby>をきちんと<ruby><rb>整</rb><rt>ととの</rt></ruby>える', 'B. <ruby><rb>清潔</rb><rt>せいけつ</rt></ruby>な<ruby><rb>靴</rb><rt>くつ</rt></ruby>を<ruby><rb>履</rb><rt>は</rt></ruby>く', 'C. <ruby><rb>強</rb><rt>つよ</rt></ruby>い<ruby><rb>香水</rb><rt>こうすい</rt></ruby>をつける'], explanation: '' },
+    { id: 35, text: 'お<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>が<ruby><rb>財布</rb><rt>さいふ</rt></ruby>を<ruby><rb>落</rb><rt>お</rt></ruby>としたときの<ruby><rb>対応</rb><rt>たいおう</rt></ruby>で<ruby><rb>正</rb><rt>ただ</rt></ruby>しいのはどれですか。', options: ['A. フロントに<ruby><rb>届</rb><rt>とど</rt></ruby>ける', 'B. <ruby><rb>自分</rb><rt>じぶん</rt></ruby>で<ruby><rb>使</rb><rt>つか</rt></ruby>う', 'C. そのまま<ruby><rb>置</rb><rt>お</rt></ruby>いておく'], explanation: '' },
+    { id: 36, text: 'ホテルで<ruby><rb>働</rb><rt>はたら</rt></ruby>くときに<ruby><rb>必</rb><rt>かなら</rt></ruby>ず<ruby><rb>守</rb><rt>まも</rt></ruby>らなければならない<ruby><rb>法律</rb><rt>ほうりつ</rt></ruby>はどれですか。', options: ['A. <ruby><rb>消防法</rb><rt>しょうぼうほう</rt></ruby>や<ruby><rb>労働基準法</rb><rt>ろうどうきじゅんほう</rt></ruby>', 'B. <ruby><rb>料理</rb><rt>りょうり</rt></ruby>のレシピ', 'C. ゲームのルール'], explanation: '' },
+    { id: 37, text: 'お<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>から<ruby><rb>質問</rb><rt>しつもん</rt></ruby>されたときに「わかりません」と<ruby><rb>答</rb><rt>こた</rt></ruby>える<ruby><rb>場合</rb><rt>ばあい</rt></ruby>、どうするのが<ruby><rb>正</rb><rt>ただ</rt></ruby>しいですか。', options: ['A. そのまま<ruby><rb>放置</rb><rt>ほうち</rt></ruby>する', 'B. 他のスタッフや<ruby><rb>資料</rb><rt>しりょう</rt></ruby>を<ruby><rb>確認</rb><rt>かくにん</rt></ruby>する', 'C. <ruby><rb>適当</rb><rt>てきとう</rt></ruby>に<ruby><rb>答</rb><rt>こた</rt></ruby>える'], explanation: '' },
+    { id: 38, text: '<ruby><rb>掃除機</rb><rt>そうじき</rt></ruby>をかけるときに<ruby><rb>注意</rb><rt>ちゅうい</rt></ruby>すべきことはどれですか。', options: ['A. <ruby><rb>静</rb><rt>しず</rt></ruby>かに<ruby><rb>周囲</rb><rt>しゅうい</rt></ruby>に<ruby><rb>配慮</rb><rt>はいりょ</rt></ruby>して<ruby><rb>使</rb><rt>つか</rt></ruby>う', 'B. <ruby><rb>夜中</rb><rt>やなか</rt></ruby>に<ruby><rb>大</rb><rt>おお</rt></ruby>きな<ruby><rb>音</rb><rt>おと</rt></ruby>で<ruby><rb>使</rb><rt>つか</rt></ruby>う', 'C. <ruby><rb>電源</rb><rt>でんげん</rt></ruby>コードを<ruby><rb>引っ張</rb><rt>ひっぱ</rt></ruby>って<ruby><rb>遊</rb><rt>あそ</rt></ruby>ぶ'], explanation: '' },
+    { id: 39, text: '<ruby><rb>宿泊施設</rb><rt>しゅくはくしせつ</rt></ruby>での「お<ruby><rb>もてなし</rb><rt>もてなし</rt></ruby>」の<ruby><rb>心</rb><rt>こころ</rt></ruby>として<ruby><rb>大切</rb><rt>たいせつ</rt></ruby>なのはどれですか。', options: ['A. <ruby><rb>相手</rb><rt>あいて</rt></ruby>の<ruby><rb>立場</rb><rt>たちば</rt></ruby>に<ruby><rb>立</rb><rt>た</rt></ruby>って<ruby><rb>行動</rb><rt>こうどう</rt></ruby>する', 'B. <ruby><rb>自分</rb><rt>じぶん</rt></ruby>の<ruby><rb>都合</rb><rt>つごう</rt></ruby>を<ruby><rb>優先</rb><rt>ゆうせん</rt></ruby>する', 'C. お<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>を<ruby><rb>区別</rb><rt>くべつ</rt></ruby>して<ruby><rb>扱</rb><rt>あつか</rt></ruby>う'], explanation: '' },
+    { id: 40, text: '<ruby><rb>災害</rb><rt>さいがい</rt></ruby>が<ruby><rb>発生</rb><rt>はっせい</rt></ruby>したとき、<ruby><rb>従業員</rb><rt>じゅうぎょういん</rt></ruby>がまず<ruby><rb>行</rb><rt>おこな</rt></ruby>うべきことはどれですか。', options: ['A. <ruby><rb>自分</rb><rt>じぶん</rt></ruby>だけ<ruby><rb>逃</rb><rt>に</rt></ruby>げる', 'B. お<ruby><rb>客様</rb><rt>きゃくさま</rt></ruby>の<ruby><rb>安全</rb><rt>あんぜん</rt></ruby>を<ruby><rb>確保</rb><rt>かくほ</rt></ruby>する', 'C. <ruby><rb>仕事</rb><rt>しごと</rt></ruby>を<ruby><rb>続</rb><rt>つづ</rt></ruby>ける'], explanation: '' }
+];
+        let startTime = null;
+        let timerInterval = null;
+        function normalizeString(str) {
+            return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '');
+        }
+        function getEvaluation(percentage) {
+            if (percentage >= 85) return 'A';
+            if (percentage >= 70) return 'B';
+            if (percentage >= 60) return 'C';
+            if (percentage >= 55) return 'D';
+            return 'F';
+        }
+        function generateQuestions() {
+            const questionSection = document.getElementById('question-section');
+            questionSection.innerHTML = '';
+            questions.forEach(q => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.innerHTML = `<p>${q.id}. ${q.text}</p>`;
+                if (q.type === 'radio' || !q.type) {
+                    const optionsDiv = document.createElement('div');
+                    optionsDiv.className = 'options';
+                    q.options.forEach((option, index) => {
+                        const optionValue = String.fromCharCode(65 + index);
+                        const optionDiv = document.createElement('div');
+                        optionDiv.className = 'option';
+                        optionDiv.innerHTML = `
+                            <input type="radio" name="q${q.id}" id="q${q.id}-${optionValue}" value="${optionValue}">
+                            <label for="q${q.id}-${optionValue}">${option}</label>
+                        `;
+                        optionsDiv.appendChild(optionDiv);
+                    });
+                    questionDiv.appendChild(optionsDiv);
+                } else if (q.type === 'text') {
+                    questionDiv.innerHTML += `
+                        <input type="text" id="q${q.id}" class="text-input">
+                    `;
+                }
+                questionDiv.innerHTML += `<div id="feedback-${q.id}" class="answer-feedback"></div>`;
+                questionSection.appendChild(questionDiv);
+            });
+        }
+        function calculateRadioSectionScore(startQuestion, endQuestion, pointsPerQuestion) {
+            let score = 0;
+            for (let i = startQuestion; i <= endQuestion; i++) {
+                const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selectedOption) {
+                    const userAnswer = selectedOption.value;
+                    if (userAnswer === answerKey[i]) {
+                        score += pointsPerQuestion;
+                    }
+                    showRadioAnswerFeedback(i);
+                }
+            }
+            return score;
+        }
+        function calculateTextSectionScore(startQuestion, endQuestion, pointsPerQuestion) {
+            let score = 0;
+            for (let i = startQuestion; i <= endQuestion; i++) {
+                const userAnswer = document.getElementById(`q${i}`).value.trim();
+                if (userAnswer) {
+                    const normalizedUserAnswer = normalizeString(userAnswer);
+                    const normalizedCorrectAnswer = normalizeString(answerKey[i]);
+                    if (normalizedUserAnswer === normalizedCorrectAnswer) {
+                        score += pointsPerQuestion;
+                    }
+                    showTextAnswerFeedback(i);
+                }
+            }
+            return score;
+        }
+        function showRadioAnswerFeedback(questionNumber) {
+            const feedbackElement = document.getElementById(`feedback-${questionNumber}`);
+            const selectedOption = document.querySelector(`input[name="q${questionNumber}"]:checked`);
+            if (!selectedOption) {
+                feedbackElement.textContent = 'Bạn chưa chọn đáp án.';
+                feedbackElement.classList.add('wrong');
+                return;
+            }
+            const userAnswer = selectedOption.value;
+            if (userAnswer === answerKey[questionNumber]) {
+                feedbackElement.textContent = 'Đúng!';
+                feedbackElement.classList.remove('wrong');
+            } else {
+                feedbackElement.textContent = `Sai. Đáp án đúng là: ${answerKey[questionNumber]}`;
+                feedbackElement.classList.add('wrong');
+            }
+        }
+        function showTextAnswerFeedback(questionNumber) {
+            const feedbackElement = document.getElementById(`feedback-${questionNumber}`);
+            const userAnswer = document.getElementById(`q${questionNumber}`).value.trim();
+            if (!userAnswer) {
+                feedbackElement.textContent = 'Bạn chưa nhập câu trả lời.';
+                feedbackElement.classList.add('wrong');
+                return;
+            }
+            const normalizedUserAnswer = normalizeString(userAnswer);
+            const normalizedCorrectAnswer = normalizeString(answerKey[questionNumber]);
+            if (normalizedUserAnswer === normalizedCorrectAnswer) {
+                feedbackElement.textContent = 'Đúng!';
+                feedbackElement.classList.remove('wrong');
+            } else {
+                feedbackElement.textContent = `Sai. Đáp án đúng là: ${answerKey[questionNumber]}`;
+                feedbackElement.classList.add('wrong');
+            }
+        }
+        function formatTime(date) {
+            return date.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        }
+        function startTimer() {
+            startTime = new Date();
+            const endTime = new Date(startTime.getTime() + 60 * 60 * 1000);
+            const timerElement = document.getElementById('timer');
+            timerInterval = setInterval(() => {
+                const now = new Date();
+                const timeLeft = endTime - now;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    timerElement.textContent = 'Hết giờ!';
+                    timerElement.classList.add('warning');
+                    submitTest();
+                    return;
+                }
+                const minutes = Math.floor(timeLeft / 1000 / 60);
+                const seconds = Math.floor((timeLeft / 1000) % 60);
+                timerElement.textContent = `Thời gian còn lại: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                if (timeLeft <= 5 * 60 * 1000) {
+                    timerElement.classList.add('warning');
+                }
+            }, 1000);
+        }
+        function checkPassword() {
+            const passwordInput = document.getElementById('password-input').value.trim();
+            const passwordError = document.getElementById('password-error');
+            if (passwordInput === '112') {
+                window.location.href = 'history.html';
+            } else {
+                passwordError.textContent = 'Mật khẩu không đúng. Vui lòng thử lại.';
+                document.getElementById('password-input').value = '';
+            }
+        }
+        function showPasswordModal() {
+            document.getElementById('password-modal').style.display = 'flex';
+            document.getElementById('password-input').focus();
+        }
+        function closePasswordModal() {
+            document.getElementById('password-modal').style.display = 'none';
+            document.getElementById('password-input').value = '';
+            document.getElementById('password-error').textContent = '';
+        }
+        window.checkPassword = checkPassword;
+        window.showPasswordModal = showPasswordModal;
+        window.closePasswordModal = closePasswordModal;
+        window.resetTest = resetTest;
+        async function submitTest() {
+            const endTime = new Date();
+            const name = document.getElementById('name').value.trim();
+            const className = document.getElementById('class').value.trim();
+            const dateInput = document.getElementById('date').value;
+            const messageResult = document.getElementById('message-result');
+            const resultSection = document.getElementById('results');
+            const scoreDisplay = document.getElementById('score-display');
+            if (!name || !className || !dateInput) {
+                messageResult.textContent = 'Vui lòng điền đầy đủ thông tin cá nhân.';
+                return;
+            }
+            clearInterval(timerInterval);
+            document.getElementById('timer').style.display = 'none';
+            document.getElementById('submit-test').style.display = 'none';
+            const section1Score = calculateRadioSectionScore(1, 40, 1);
+            const totalRawScore = section1Score || 0;
+            const percentage = (totalRawScore / 40) * 100 || 0;
+            const totalScore = Math.round(percentage) || 0;
+            const evaluation = getEvaluation(percentage);
+            const rankClass = evaluation === 'A' ? 'rank-a' : evaluation === 'F' ? 'rank-f' : '';
+            console.log('Total Raw Score:', totalRawScore, 'Percentage:', percentage, 'Section1 Score:', section1Score);
+            const resultTable = `
+                <table class="result-table">
+                    <thead>
+                        <tr>
+                            <th>Tên</th>
+                            <th>Lớp</th>
+                            <th>Ngày</th>
+                            <th>Bắt đầu</th>
+                            <th>Kết thúc</th>
+                            <th>Tổng điểm</th>
+                            <th>Tỷ lệ</th>
+                            <th>Xếp loại</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>${name || 'Chưa có'}</td>
+                            <td>${className || 'Chưa có'}</td>
+                            <td>${dateInput || new Date().toLocaleDateString('vi-VN')}</td>
+                            <td>${formatTime(startTime) || '00:00:00'}</td>
+                            <td>${formatTime(endTime) || '00:00:00'}</td>
+                            <td>${totalRawScore}/40</td>
+                            <td>${Math.round(percentage)}%</td>
+                            <td><span class="${rankClass || 'rank-f'}">${evaluation || 'F'}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="reset" onclick="window.resetTest()">Làm lại</button>
+            `;
+            scoreDisplay.innerHTML = resultTable;
+            resultSection.style.display = 'block';
+            const firestoreDoc = {
+                startTime: formatTime(startTime) || '00:00:00',
+                endTime: formatTime(endTime) || '00:00:00',
+                date: dateInput || new Date().toLocaleDateString('vi-VN'),
+                name: name || 'Chưa có',
+                className: className || 'Chưa có',
+                section: section1Score || 0,
+                totalScore: totalRawScore || 0,
+                percentage: percentage || 0,
+                evaluation: evaluation || 'F',
+                timestamp: new Date()
+            };
+            let isValid = true;
+            for (const [key, value] of Object.entries(firestoreDoc)) {
+                if (value === undefined || value === null) {
+                    console.error(`Invalid Firestore data: ${key} is ${value}`);
+                    isValid = false;
+                }
+            }
+            if (!isValid) {
+                messageResult.textContent = 'Dữ liệu không hợp lệ. Kết quả đã được lưu cục bộ.';
+            } else {
+                try {
+                    await addDoc(collection(db, 'testHistorytokuteiluutrude5'), firestoreDoc);
+                    messageResult.textContent = 'Kết quả đã được lưu thành công!';
+                } catch (error) {
+                    console.error('Lỗi khi lưu vào Firestore:', error);
+                    let errorMessage = 'Đã xảy ra lỗi khi lưu kết quả vào Firestore. Kết quả đã được lưu cục bộ.';
+                    if (error.code) {
+                        switch (error.code) {
+                            case 'permission-denied':
+                                errorMessage = 'Không có quyền lưu kết quả vào Firestore. Vui lòng kiểm tra cấu hình bảo mật.';
+                                break;
+                            case 'unavailable':
+                                errorMessage = 'Không thể kết nối với Firestore. Vui lòng kiểm tra kết nối mạng.';
+                                break;
+                            case 'resource-exhausted':
+                                errorMessage = 'Đã vượt quá giới hạn Firestore. Vui lòng kiểm tra hạn mức dự án.';
+                                break;
+                            default:
+                                errorMessage += ` (Mã lỗi: ${error.code})`;
+                        }
+                    }
+                    messageResult.textContent = errorMessage;
+                }
+            }
+            const testHistory = JSON.parse(localStorage.getItem('testHistorytokuteiluutrude5') || '[]');
+            testHistory.push(firestoreDoc);
+            localStorage.setItem('testHistorytokuteiluutrude5', JSON.stringify(testHistory));
+        }
+        function resetTest() {
+            document.getElementById('name').value = '';
+            document.getElementById('class').value = '';
+            document.getElementById('date').value = new Date().toISOString().split('T')[0];
+            document.getElementById('message-info').textContent = '';
+            document.getElementById('message-result').textContent = '';
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('score-display').innerHTML = '';
+            document.getElementById('timer').style.display = 'none';
+            document.getElementById('submit-test').style.display = 'none';
+            document.getElementById('start-test').style.display = 'inline-block';
+            document.getElementById('history-test').style.display = 'inline-block';
+            document.querySelectorAll('.question-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.querySelectorAll('input[type="radio"]').forEach(input => {
+                input.checked = false;
+            });
+            document.querySelectorAll('input[type="text"]').forEach(input => {
+                input.value = '';
+            });
+            document.querySelectorAll('.answer-feedback').forEach(feedback => {
+                feedback.textContent = '';
+                feedback.classList.remove('wrong');
+            });
+            clearInterval(timerInterval);
+        }
+        document.getElementById('start-test').addEventListener('click', () => {
+            const name = document.getElementById('name').value.trim();
+            const className = document.getElementById('class').value.trim();
+            const dateInput = document.getElementById('date').value;
+            const messageInfo = document.getElementById('message-info');
+            if (!name || !className || !dateInput) {
+                messageInfo.textContent = 'Vui lòng điền đầy đủ thông tin: Tên, Lớp, và Ngày.';
+                return;
+            }
+            messageInfo.textContent = '';
+            document.getElementById('start-test').style.display = 'none';
+            document.getElementById('history-test').style.display = 'none';
+            document.querySelectorAll('.question-section').forEach(section => {
+                section.style.display = 'block';
+            });
+            document.getElementById('submit-test').style.display = 'block';
+            document.getElementById('timer').style.display = 'block';
+            generateQuestions();
+            startTimer();
+        });
+        document.getElementById('submit-test').addEventListener('click', submitTest);
+    </script>
+</body>
+</html>
